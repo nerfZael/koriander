@@ -11,12 +11,19 @@ function App() {
 
   useEffect(() => {
     const urlParams = window.location.search;
-    if (urlParams == "?invoke=asdf") {
+    if (urlParams.indexOf("?invoke") > 0) {
       setScreen("test");
     }
   }, []);
   const handleClick = async () => {
-    const a = await invoke(provider, "", "", {});
+    const a = await invoke(
+      "http://localhost:5137",
+      "ens/goerli/simple.eth",
+      "simpleMethod",
+      { arg: "Bepis!" }
+    );
+    console.log(a);
+    alert("Check it");
     window.close();
   };
 

@@ -1,9 +1,11 @@
 // @ts-ignore
 
+import { eventTypes } from "../constants/eventTypes";
+
 const POPUP_WIDTH = 400;
 const POPUP_HEIGHT = 500;
 
-async function openPopup() {
+async function openInvoke() {
   let top = 0;
   let left = 0;
 
@@ -37,14 +39,8 @@ if (chrome?.runtime) {
     sender,
     sendResponse
   ) {
-    if (request?.type === "koriander-open") {
-      openPopup();
-    } else if (request?.type === "koriander-invoke") {
-      setTimeout(() => {
-        fetch("http://localhost:8080/posts").then(() => {
-          console.log("Fetch finished.");
-        });
-      }, 0);
+    if (request?.type === eventTypes.openInvoke) {
+      openInvoke();
     }
 
     sendResponse();

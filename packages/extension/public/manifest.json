@@ -11,11 +11,8 @@
     "48": "logo192.png",
     "128": "logo192.png"
   },
-<<<<<<< HEAD
-  "permissions": ["activeTab", "tabs"],
-=======
   "permissions": [
-    "activeTab", 
+    "activeTab",
     "declarativeNetRequest"
   ],
   "declarative_net_request": {
@@ -25,7 +22,6 @@
       "path": "rules.json"
     }]
   },
->>>>>>> e118cf1926ba3faa6887be38a62620ff110f1094
   "content_scripts": [
     {
       "all_frames" : false,

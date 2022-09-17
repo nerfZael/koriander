@@ -1,13 +1,9 @@
+import { eventTypes } from "../constants/eventTypes";
+
 const apiObject = {
-  hello: () => {
-    return "Hello";
-  },
-  open: () => {
+  invoke: (uri: string, method: string, args: Record<string, unknown>) => {
     // Send message to content script event listener
-    window.postMessage(
-      { type: "koriander-open", text: "Show Koriander popup" },
-      window.location.origin
-    );
+    window.postMessage({ type: eventTypes.openInvoke }, window.location.origin);
   },
 };
 

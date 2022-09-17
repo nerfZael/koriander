@@ -1,3 +1,4 @@
+import { eventTypes } from "../constants/eventTypes";
 
 // @ts-ignore
 function injectAPIIntoWindow() {
@@ -26,11 +27,8 @@ if (chrome?.runtime) {
 
     const eventType: string = event?.data?.type;
     // Send message to background messages listener
-    if (eventType === "koriander-open") {
-      chrome.runtime.sendMessage({ type: "koriander-open" }, () => {});
+    if (eventType === eventTypes.openInvoke) {
+      chrome.runtime.sendMessage({ type: eventTypes.openInvoke }, () => {});
     }
-    if (eventType === "koriander-invoke") {
-      chrome.runtime.sendMessage({ type: "koriander-invoke" }, () => {});
-    } 
   });
 }

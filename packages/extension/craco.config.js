@@ -19,14 +19,14 @@ module.exports = {
         },
         resolve: {
           ...webpackConfig.resolve,
-          fallback: {
-            "fs": false,
-            "path": false,
-            "url": false,
-            "http": false,
-            "https": false,
-            "util": false
-          }
+          // fallback: {
+          //   "fs": false,
+          //   "path": false,
+          //   "url": false,
+          //   "http": false,
+          //   "https": false,
+          //   "util": false
+          // }
         }
       }
     },
