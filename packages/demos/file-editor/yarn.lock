@@ -1515,6 +1515,11 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
+"@msgpack/msgpack@2.7.2":
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/@msgpack/msgpack/-/msgpack-2.7.2.tgz#f34b8aa0c49f0dd55eb7eba577081299cbf3f90b"
+  integrity sha512-rYEi46+gIzufyYUAoHDnRzkWGxajpD9vVXFQ3g1vbjrBm6P7MBmm+s/fqPa46sxa+8FOUdEuRQKaugo5a4JWpw==
+
 "@next/env@12.2.2":
   version "12.2.2"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-12.2.2.tgz#cc1a0a445bd254499e30f632968c03192455f4cc"
@@ -1634,6 +1639,13 @@
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
     source-map "^0.7.3"
+
+"@polywrap/msgpack-js@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@polywrap/msgpack-js/-/msgpack-js-0.7.0.tgz#c0bcdb60a9e5429f8c986f420e705025a3a7d5ec"
+  integrity sha512-MFq8z91qfIDenGWSBDNhPtISXDD5M89q9b8hSbTvG19nF23GCNKqLjUY/ivV75qGhq7RmaPh3RbwTNMOGErk7A==
+  dependencies:
+    "@msgpack/msgpack" "2.7.2"
 
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"

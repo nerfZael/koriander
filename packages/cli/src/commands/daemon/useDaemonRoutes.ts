@@ -9,13 +9,12 @@ export const useDaemonRoutes = (app: Express, client: PolywrapClient) => {
     console.log("/client/invoke", {
       uri,
       method,
-      args
     });
 
     const result = await client.invoke({
       uri,
       method,
-      args
+      args: new Uint8Array(args),
     });
 
     const sanitizedResult = {
