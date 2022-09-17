@@ -21,11 +21,7 @@ export class KorianderExtensionClient extends PolywrapClient {
   >(
     options: InvokerOptions<TUri, PolywrapClientConfig<string>>
   ): Promise<InvokeResult<TData>> {
-    const result = await axios.post(`http://localhost:5137/client/invoke`, {
-      uri: options.uri,
-      method: options.method,
-      args: [...msgpackEncode(options.args)],
-    });
+    const result = await (window as any).koriander.invoke(options.uri, options.method, options.args);
 
     return {
       data: result.data.data,

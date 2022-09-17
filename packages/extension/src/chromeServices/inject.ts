@@ -2,7 +2,7 @@ import { eventTypes } from "../constants/eventTypes";
 import { msgpackEncode } from "@polywrap/msgpack-js";
 
 const apiObject = {
-  invoke: (uri: string, method: string, args: Record<string, unknown>) => {
+  invoke: async (uri: string, method: string, args: Record<string, unknown>) => {
     // Send message to content script event listener
     const messageObj = {
       type: eventTypes.openInvoke,
@@ -14,6 +14,11 @@ const apiObject = {
     console.log("MessageObj", messageObj);
 
     window.postMessage(messageObj, window.location.origin);
+
+    return {
+      data: {},
+      error: null
+    };
   },
 };
 
