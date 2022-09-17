@@ -28,7 +28,15 @@ if (chrome?.runtime) {
     const eventType: string = event?.data?.type;
     // Send message to background messages listener
     if (eventType === eventTypes.openInvoke) {
-      chrome.runtime.sendMessage({ type: eventTypes.openInvoke }, () => {});
+      chrome.runtime.sendMessage(
+        {
+          type: eventTypes.openInvoke,
+          uri: event?.data?.uri,
+          method: event?.data?.method,
+          args: event?.data?.args,
+        },
+        () => {}
+      );
     }
   });
 }

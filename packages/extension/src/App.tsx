@@ -3,25 +3,34 @@ import "./App.css";
 import { invoke } from "./hub/invoke";
 
 function App() {
-  const [provider, setProvider] = useState("http://localhost:3001");
+  const [provider, setProvider] = useState("http://localhost:5137");
   const handleProviderChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setProvider(e.target.value);
 
   const [screen, setScreen] = useState("main");
+  const [uri, setUri] = useState("");
+  const [method, setMethod] = useState("");
+  const [args, setArgs] = useState<number[]>([]);
 
   useEffect(() => {
-    const urlParams = window.location.search;
-    if (urlParams.indexOf("?invoke") > 0) {
+    const params = new URL(window.location.toString()).searchParams;
+    console.log(params);
+    console.log(window.location.toString());
+    if (params.get("uri")) {
       setScreen("test");
+
+      setUri(decodeURIComponent(params.get("uri") as string));
+      setMethod(decodeURIComponent(params.get("method") as string));
+      setArgs(JSON.parse(decodeURIComponent(params.get("args") as string)));
+
+      console.log(decodeURIComponent(params.get("uri") as string));
+      console.log(decodeURIComponent(params.get("method") as string));
+      console.log(JSON.parse(decodeURIComponent(params.get("args") as string)));
     }
   }, []);
+
   const handleClick = async () => {
-    const a = await invoke(
-      "http://localhost:5137",
-      "ens/goerli/simple.eth",
-      "simpleMethod",
-      { arg: "Bepis!" }
-    );
+    const a = await invoke(provider, uri, method, args);
     console.log(a);
     alert("Check it");
     window.close();

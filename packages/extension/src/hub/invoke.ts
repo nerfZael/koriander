@@ -5,7 +5,7 @@ export const invoke = async (
   provider: string,
   uri: string,
   method: string,
-  args: Record<string, unknown>
+  args: number[]
 ) => {
   const result = await internalInvoke(provider, uri, method, args);
 
@@ -16,11 +16,13 @@ const internalInvoke = async (
   provider: string,
   uri: string,
   method: string,
-  args: Record<string, unknown>
+  args: number[]
 ) => {
   const result = await axios.post(`${provider}/client/invoke`, {
     uri: uri,
     method: method,
-    args: [...msgpackEncode(args)],
+    args: args,
   });
+
+  return result;
 };
