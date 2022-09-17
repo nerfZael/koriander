@@ -3,10 +3,12 @@ import express, { Request, Response, NextFunction } from "express";
 import http from "http";
 import { handleError } from "./handleError";
 import timeout from "connect-timeout";
+import { PolywrapClient } from "@polywrap/client-js";
+import { useDaemonRoutes } from "./useDaemonRoutes";
 
 export const homepageMessage = "Koriander node daemon";
 
-export const startDaemon = (port: number, requestTimeout: number): Promise<http.Server> => {
+export const startDaemon = (port: number, requestTimeout: number, client: PolywrapClient): Promise<http.Server> => {
   const app = express();
   app.use(timeout(requestTimeout));
   app.use(express.json());
@@ -37,6 +39,8 @@ export const startDaemon = (port: number, requestTimeout: number): Promise<http.
   app.get('/', handleError(async (_: any, res: any) => {
     res.send(`<pre>${homepageMessage}</pre>`);
   }));
+
+  useDaemonRoutes(app, client);
 
   const server = http.createServer({}, app);
   
