@@ -17,12 +17,10 @@ export const startDaemon = (port: number, requestTimeout: number, client: Polywr
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-    if (req.method === 'OPTIONS') {
-      res.send(200);
-    } else {
+    if (req.method !== 'OPTIONS') {
       console.log(`Request:  ${req.method} --- ${req.url}`);
-      next();
     }
+    next();
   }));
 
   app.use((req: Request, res: Response, next: NextFunction) => {

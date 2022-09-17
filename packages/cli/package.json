@@ -28,7 +28,8 @@
     "build": "tsc --project tsconfig.build.json",
     "dev": "ts-node src/main.ts",
     "start": "node bin/main.js",
-    "test": "jest test --passWithNoTests"
+    "test": "jest test --passWithNoTests",
+    "daemon": "yarn dev daemon"
   },
   "dependencies": {
     "@polywrap/client-js": "0.7.0",

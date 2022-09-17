@@ -1,0 +1,55 @@
+{
+  "name": "file-editor",
+  "version": "0.2.0",
+  "private": true,
+  "dependencies": {
+    "@polywrap/msgpack-js": "^0.7.0",
+    "next": "12.2.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-scripts": "5.0.1",
+    "sass": "1.53.0",
+    "typescript": "4.8.3",
+    "web-vitals": "2.1.4"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build && next export",
+    "lint": "eslint --color -c .eslintrc.js . --ext .ts,.tsx",
+    "lint:fix": "eslint --color -c .eslintrc.js . --fix --ext .ts,.tsx",
+    "format": "prettier --check \"./**/*.{js,ts,tsx}\"",
+    "format:fix": "prettier --write \"./**/*.{js,ts,tsx}\""
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "12.2.2",
+    "@types/node": "18.0.1",
+    "@types/prettier": "2.6.3",
+    "@types/react": "18.0.15",
+    "@types/react-dom": "18.0.6",
+    "@typescript-eslint/eslint-plugin": "5.30.5",
+    "@typescript-eslint/parser": "5.30.5",
+    "babel-eslint": "10.1.0",
+    "eslint": "8.19.0",
+    "eslint-config-next": "12.2.2",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-config-react": "1.1.7",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-json": "3.1.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-react": "7.30.1",
+    "prettier": "2.7.1"
+  }
+}

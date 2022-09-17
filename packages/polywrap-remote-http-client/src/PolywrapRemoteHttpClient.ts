@@ -1,4 +1,5 @@
 import { InvokeResult, InvokerOptions, PolywrapClient, PolywrapClientConfig, Uri } from "@polywrap/client-js";
+import { msgpackEncode } from "@polywrap/msgpack-js";
 import axios from "axios";
 
 export class PolywrapRemoteHttpClient extends PolywrapClient {
@@ -14,9 +15,8 @@ export class PolywrapRemoteHttpClient extends PolywrapClient {
     const result = await axios.post(`${this.clientProvider}/invoke`, {
       uri: options.uri,
       method: options.method,
-      args: options.args
+      args: [...msgpackEncode(options.args)]
     });
-    
 
     return {
       data: result.data.data,
