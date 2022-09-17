@@ -1,0 +1,39 @@
+{
+  "name": "koriander",
+  "version": "0.1.0",
+  "main": "bin/main.js",
+  "types": "bin/main.d.ts",
+  "author": "nerfZael",
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "/bin"
+  ],
+  "bin": {
+    "kori": "./bin/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nerfZael/koriander.git"
+  },
+  "keywords": [
+    "koriander",
+    "kori",
+    "polywrap",
+    "cli",
+    "ens",
+    "ipfs"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "dev": "ts-node src/main.ts",
+    "start": "node bin/main.js"
+  },
+  "dependencies": {
+    "typescript": "4.8.3"
+  },
+  "devDependencies": {
+    "@types/node": "16.11.11",
+    "ts-node": "10.9.1"
+  }
+}
