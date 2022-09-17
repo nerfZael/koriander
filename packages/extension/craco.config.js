@@ -16,6 +16,17 @@ module.exports = {
         optimization: {
           ...webpackConfig.optimization,
           runtimeChunk: false,
+        },
+        resolve: {
+          ...webpackConfig.resolve,
+          fallback: {
+            "fs": false,
+            "path": false,
+            "url": false,
+            "http": false,
+            "https": false,
+            "util": false
+          }
         }
       }
     },

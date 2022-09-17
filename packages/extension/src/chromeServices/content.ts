@@ -1,12 +1,36 @@
-console.log("Test successful!");
 
-var s = document.createElement('script');
-s.src = chrome.runtime.getURL('static/js/inject.js');
-(document.head || document.documentElement).appendChild(s);
+// @ts-ignore
+function injectAPIIntoWindow() {
+  try {
+    const container = document.head || document.documentElement;
+    const scriptTag = document.createElement("script");
 
-document.addEventListener('korianderExt_test', function(e) {
-  // e.detail contains the transferred data (can be anything, ranging
-  // from JavaScript objects to strings).
-  // Do something, for example:
-  alert((e as CustomEvent<string>).detail);
-})
+    scriptTag.async = false;
+    scriptTag.src = chrome.runtime.getURL("static/js/inject.js");
+
+    container.insertBefore(scriptTag, container.children[0]);
+    container.removeChild(scriptTag);
+  } catch (error) {
+    console.error("Koriander: Provider injection failed.", error);
+  }
+}
+
+if (chrome?.runtime) {
+  injectAPIIntoWindow();
+
+  // Catch messages from inpage script and others
+  window.addEventListener("message", (event) => {
+    if (!chrome.runtime?.id || event.source !== window) {
+      return;
+    }
+
+    const eventType: string = event?.data?.type;
+    // Send message to background messages listener
+    if (eventType === "koriander-open") {
+      chrome.runtime.sendMessage({ type: "koriander-open" }, () => {});
+    }
+    if (eventType === "koriander-invoke") {
+      chrome.runtime.sendMessage({ type: "koriander-invoke" }, () => {});
+    } 
+  });
+}

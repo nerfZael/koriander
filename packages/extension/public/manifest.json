@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "version": "0.1.0",
   "short_name": "Koriander",
-  "name": "Koriander extension",
+  "name": "Koriander",
   "action": {
     "default_popup": "index.html"
   },
@@ -11,11 +11,12 @@
     "48": "logo192.png",
     "128": "logo192.png"
   },
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "tabs"],
   "content_scripts": [
     {
+      "all_frames" : false,
       "matches": ["http://*/*", "https://*/*"],
-      "run_at": "document_start",
+      "run_at": "document_end",
       "js": ["./static/js/content.js"]
     }
   ],
