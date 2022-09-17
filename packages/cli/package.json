@@ -1,16 +1,16 @@
 {
   "name": "koriander",
   "version": "0.1.0",
-  "main": "bin/main.js",
-  "types": "bin/main.d.ts",
+  "main": "build/main.js",
+  "types": "build/main.d.ts",
   "author": "nerfZael",
   "license": "MIT",
   "private": false,
   "files": [
-    "/bin"
+    "/build"
   ],
   "bin": {
-    "kori": "./bin/main.js"
+    "kori": "./build/main.js"
   },
   "repository": {
     "type": "git",

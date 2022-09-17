@@ -9,9 +9,9 @@ const PORT = 5137;
 const TIMEOUT = 5000;
 
 export const stopServer = async (server: http.Server) => {
-  return new Promise<void>((resolve, reject) => {
+  return new Promise<void>((resolve) => {
     server.close(() => {
-      resolve()
+      resolve();
     });
   });
 }
