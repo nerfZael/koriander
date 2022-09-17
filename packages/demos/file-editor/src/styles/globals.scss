@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 80%;
+}
+
+@media (min-width: 768px) {
+  html {
+      font-size: 85%;
+  }
+}
+@media (min-width: 991px) {
+  html {
+      font-size: 90%;
+  }
+}
+@media (min-width: 1279px) {
+  html {
+      font-size: 100%;
+  }
+}
+@media (min-width: 1440px) {
+  html {
+      font-size: 105%;
+  }
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background: #23232F;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+}
