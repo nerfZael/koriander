@@ -1,7 +1,7 @@
 import { PolywrapClient } from "@polywrap/client-js";
+import { PolywrapRemoteHttpClient } from "polywrap-remote-http-client";
 import http from "http";
 import { startDaemon } from "../../commands/daemon";
-import { PolywrapRemoteHttpClient } from "../utils/PolywrapRemoteHttpClient";
 
 jest.setTimeout(30000);
 
