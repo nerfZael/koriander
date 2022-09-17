@@ -12,3 +12,6 @@ wrap
 
 # Logging
 *.log
+
+# Test
+coverage
