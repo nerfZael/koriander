@@ -4,7 +4,7 @@ import * as dotenv from "dotenv"
 import { daemonCommand } from "./commands/daemon";
 
 dotenv.config();
-console.log(process.env);
+
 (async () => {
   daemonCommand.register(program);
     

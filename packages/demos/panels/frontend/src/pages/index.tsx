@@ -25,14 +25,6 @@ const Home = (): ReactElement<any, any> => {
     if(!web3?.account) {
       return;
     }
-    setMyNfts(
-      await fetchTokens(await fetchTokenIdsForAccount(
-          contracts.tokenEnumerator, 
-          contracts.panels, 
-          web3?.account as string, 
-          web3?.signer
-        ), contracts.panels, web3?.signer)
-      );
     setAllNfts(
       await fetchTokens(await fetchAllTokenIds(
         contracts.tokenEnumerator, 
@@ -94,24 +86,6 @@ const Home = (): ReactElement<any, any> => {
                   </>
                 )
                 : <div>No NFT selected</div>
-            }
-            </div>
-          </div>
-          <div>
-            <div>
-              <h2>My NFTs</h2>
-            </div>
-            <div>
-            {
-              myNfts && myNfts.length 
-                ? myNfts.map((nft, index) => {
-                    return (
-                      <div onClick={() => setSelectedNft(nft)}>
-                        <img src={`${nft.imageUri}`} />
-                      </div>
-                    )
-                  })
-                : <div>No NFTs found</div>
             }
             </div>
           </div>

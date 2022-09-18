@@ -1,5 +1,5 @@
 import { InvokeResult, InvokerOptions, PolywrapClient, PolywrapClientConfig, Uri } from "@polywrap/client-js";
-import { msgpackEncode } from "@polywrap/msgpack-js";
+import { msgpackDecode, msgpackEncode } from "@polywrap/msgpack-js";
 import axios from "axios";
 
 export class PolywrapRemoteHttpClient extends PolywrapClient {
@@ -19,10 +19,8 @@ export class PolywrapRemoteHttpClient extends PolywrapClient {
     });
 
     return {
-      data: result.data.data,
-      error: result.data.error 
-        ? new Error(result.data.error)
-        : undefined
+      data: msgpackDecode(new Uint8Array(result.data.data)),
+      error: result.data.error ? new Error(result.data.error) : undefined,
     } as InvokeResult<TData>;
   }
 }

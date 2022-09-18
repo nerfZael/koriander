@@ -4,30 +4,20 @@ import {
   PolywrapClientConfig,
   Uri,
 } from "@polywrap/client-js";
-import { msgpackDecode, msgpackEncode } from "@polywrap/msgpack-js";
-import axios from "axios";
+import { msgpackDecode } from "@polywrap/msgpack-js";
 
 export class KorianderExtensionClient {
-  constructor(
-    config?: Partial<PolywrapClientConfig>
-  ) {
-  }
-
   public async invoke<
     TData = unknown,
     TUri extends string | Uri = string
   >(
     options: InvokerOptions<TUri, PolywrapClientConfig<string>>
   ): Promise<InvokeResult<TData>> {
-    const result = await axios.post(`http://localhost:5137/client/invoke`, {
-      uri: options.uri,
-      method: options.method,
-      args: [...msgpackEncode(options.args)],
-    });
-
+    const result = await (window as any).koriander.invoke(options.uri, options.method, options.args);
+    console.log("Result from Koriander:", result);
     return {
-      data: msgpackDecode(new Uint8Array(result.data.data)),
-      error: result.data.error ? new Error(result.data.error) : undefined,
+      data: result.data ? msgpackDecode(result.data) : undefined,
+      error: result.error,
     } as InvokeResult<TData>;
   }
 }

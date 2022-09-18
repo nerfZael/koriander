@@ -3,6 +3,7 @@ import { Provider } from '@ethersproject/providers';
 import { TokenInfo } from "../types/TokenInfo";
 import { KorianderExtensionClient } from "./KorianderExtensionClient";
 import { contracts } from "../config/contracts";
+import { msgpackDecode } from "@polywrap/msgpack-js";
 
 export const fetchTokens = async (tokenIds: number[], tokenAddress: string, signerOrProvider?: Provider | Signer): Promise<TokenInfo[]> => {
   const tokens: TokenInfo[] = [];
@@ -19,15 +20,14 @@ export const fetchTokens = async (tokenIds: number[], tokenAddress: string, sign
 };
 
 export const getImageFromTokenId = async (tokenId: number, signerOrProvider?: Provider | Signer): Promise<string> => {
-  const abi = [
-    "function tokenURI(uint256 tokenId) public view returns (string memory)",
-  ];
-  const panel = new Contract(contracts.panels, abi, signerOrProvider);
+  // const abi = [
+  //   "function tokenURI(uint256 tokenId) public view returns (string memory)",
+  // ];
+  // const panel = new Contract(contracts.panels, abi, signerOrProvider);
  
-  const tokenUri = await panel.tokenURI(tokenId);
-  const metadataObj = await getMetadataFromLink(tokenUri)
-  const metadata = JSON.parse(metadataObj.content);
-  return await getImageFromLink(metadata.image);
+  // const tokenUri = await panel.tokenURI(tokenId);
+  // const metadataObj = await getMetadataFromLink(tokenUri)
+  return await getImageFromLink("https://wrap.link/i/ens/eth-berlin-2022-panels.eth/image?id="+tokenId);
 };
 
 export const getMetadataFromLink = async (link: string): Promise<any> => {
@@ -51,7 +51,7 @@ export const getMetadataFromLink = async (link: string): Promise<any> => {
       throw result.error;
     }
 
-    return result.data as string;
+    return result.data;
   }
 
   return link;

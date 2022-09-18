@@ -11,16 +11,7 @@
     "48": "logo192.png",
     "128": "logo192.png"
   },
-  "permissions": ["activeTab", "tabs", "declarativeNetRequest", "storage"],
-  "declarative_net_request": {
-    "rule_resources": [
-      {
-        "id": "ruleset_1",
-        "enabled": true,
-        "path": "rules.json"
-      }
-    ]
-  },
+  "permissions": ["activeTab", "tabs", "storage"],
   "content_scripts": [
     {
       "all_frames": false,
