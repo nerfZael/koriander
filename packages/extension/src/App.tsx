@@ -30,38 +30,37 @@ function App() {
     }
   }, []);
 
-  const handleClick = async () => {
+  const handleInvoke = async () => {
     const invokeResult = await invoke(provider, uri, method, args);
-    console.log(invokeResult);
+    console.log("invokeResult", invokeResult);
 
-    // const messageObj = {
-    //   type: eventTypes.invokeResult,
-    //   result: invokeResult,
-    // };
+    const getResult = await chrome.storage.local.get("requests");
+    console.log("getResult", getResult);
 
-    chrome.storage.local.get("requests", (getResult) => {
-      console.log(getResult);
-      const array = getResult.requests as KorianderRequest[];
+    const array = getResult.requests as KorianderRequest[];
 
-      const request = array.find((x) => x.id === requestId);
-      if (request) {
-        request.response = invokeResult;
-      }
+    const request = array.find((x) => x.id === requestId);
+    if (request) {
+      request.response = invokeResult;
+    }
 
-      chrome.storage.local.set({ requests: array });
-    });
-    // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    //   console.log("TABS", tabs);
-    //   console.log(tabs[0].id as number);
-    //   chrome.tabs.sendMessage((tabs[0].id as number), messageObj, () => {});
-    // });
+    console.log("array", array);
+    chrome.storage.local.set({ requests: [...array] });
 
-    // chrome.runtime.sendMessage(
-    //   messageObj,
-    //   () => {}
-    // );
+    window.close();
+  };
 
-    // alert("Check it");
+  const handleReject = async () => {
+    const getResult = await chrome.storage.local.get("requests");
+    console.log(getResult);
+    const array = getResult.requests as KorianderRequest[];
+
+    const request = array.find((x) => x.id === requestId);
+    if (request) {
+      request.response = { data: null, error: "REJECTED_BY_USER" };
+    }
+
+    await chrome.storage.local.set({ requests: array });
 
     window.close();
   };
@@ -85,8 +84,11 @@ function App() {
     </div>
   ) : (
     <div className="App">
-      <button type="button" onClick={handleClick}>
+      <button type="button" onClick={handleInvoke}>
         INVOKE
+      </button>
+      <button type="button" onClick={handleReject}>
+        REJECT
       </button>
     </div>
   );

@@ -20,7 +20,7 @@ export class KorianderExtensionClient extends PolywrapClient {
     options: InvokerOptions<TUri, PolywrapClientConfig<string>>
   ): Promise<InvokeResult<TData>> {
     const result = await (window as any).koriander.invoke(options.uri, options.method, options.args);
-
+    console.log("Result from Koriander:", result);
     return {
       data: result.data,
       error: result.error ? new Error(result.error) : undefined,

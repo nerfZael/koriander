@@ -56,7 +56,7 @@ if (chrome?.runtime) {
         () => {}
       );
 
-      const listener = (objects: {
+      const listener = async (objects: {
         [key: string]: chrome.storage.StorageChange;
       }) => {
         const newArray = objects["requests"].newValue as KorianderRequest[];
@@ -64,19 +64,21 @@ if (chrome?.runtime) {
         const request = newArray.find((x) => x.id === requestId);
 
         if (request && request.response) {
-          chrome.storage.local.get("requests").then((res) => {
-            const array = res.requests as KorianderRequest[];
-            const requestToRemove = array.find((x) => x.id === requestId);
+          const res = await chrome.storage.local.get("requests");
+          const array = res.requests as KorianderRequest[];
+          const requestToRemove = array.find((x) => x.id === requestId);
 
-            if (requestToRemove) {
-              array.splice(array.indexOf(requestToRemove), 1);
-            }
-          });
+          if (requestToRemove) {
+            array.splice(array.indexOf(requestToRemove), 1);
+          }
+
+          await chrome.storage.local.set({ requests: array });
 
           window.postMessage({
             type: eventTypes.invokeResult,
-            result: request.response
+            result: request.response,
           });
+
           chrome.storage.local.onChanged.removeListener(listener);
         }
       };

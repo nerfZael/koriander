@@ -5,7 +5,9 @@ import { KorianderRequest } from "../types/request";
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.set({ requests: [] });
-  console.log("Requests set");
+  console.log("Requests reset");
+  chrome.storage.local.set({ approvedUris: [] });
+  console.log("Approved URIs reset");
 });
 
 const POPUP_WIDTH = 400;
