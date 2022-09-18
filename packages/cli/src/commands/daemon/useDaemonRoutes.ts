@@ -1,6 +1,7 @@
 import { Express } from "express";
 import { PolywrapClient } from "@polywrap/client-js";
 import { handleError } from "./handleError";
+import { msgpackEncode } from "@polywrap/msgpack-js";
 
 export const useDaemonRoutes = (app: Express, client: PolywrapClient) => {
   app.post('/client/invoke', handleError(async (req, res) => {
@@ -18,7 +19,7 @@ export const useDaemonRoutes = (app: Express, client: PolywrapClient) => {
     });
 
     const sanitizedResult = {
-      data: result.data,
+      data: [...msgpackEncode(result.data)],
       error: result.error
         ? result.error.message
         : undefined
