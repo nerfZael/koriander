@@ -1,6 +1,7 @@
 import { eventTypes } from "../constants/eventTypes";
 import { v4 as uuid } from "uuid";
 import { KorianderRequest } from "../types/request";
+import { invoke } from "../hub/invoke";
 
 // @ts-ignore
 function injectAPIIntoWindow() {
@@ -35,7 +36,7 @@ if (chrome?.runtime) {
   console.log("added listener");
 
   // Catch messages from inpage script and others
-  window.addEventListener("message", (event) => {
+  window.addEventListener("message", async (event) => {
     if (!chrome.runtime?.id || event.source !== window) {
       return;
     }
@@ -43,6 +44,56 @@ if (chrome?.runtime) {
     const eventType: string = event?.data?.type;
     // Send message to background messages listener
     if (eventType === eventTypes.openInvoke) {
+      //if approved, invoke
+      const fetchApprovedUris = async () => {
+        const result = await chrome.storage.local.get("approvedUris");
+        const approvedUris = result.approvedUris as string[];
+        return approvedUris;
+      };
+      const fetchRejectedUris = async () => {
+        const result = await chrome.storage.local.get("rejectedUris");
+        const rejectedUris = result.rejectedUris as string[];
+        return rejectedUris;
+      };
+      const fetchProvider = async () => {
+        const result = await chrome.storage.local.get("provider");
+        const provider = result.provider as string;
+        return provider;
+      };
+      const uri = event?.data?.uri as string;
+      const method = event?.data?.method as string;
+      const args = event?.data?.args as number[];
+
+      console.log("WILL THIS BE THE URI?", uri);
+      const approvedUris = await fetchApprovedUris();
+
+      if (approvedUris.includes(uri)) {
+        const provider = await fetchProvider();
+
+        const result = await invoke(provider, uri, method, args);
+        console.log(result);
+        window.postMessage({
+          type: eventTypes.invokeResult,
+          result: result,
+        });
+
+        return;
+      }
+
+      const rejectedUris = await fetchRejectedUris();
+
+      if (rejectedUris.includes(uri)) {
+        window.postMessage({
+          type: eventTypes.invokeResult,
+          result: {
+            data: null,
+            error: "REJECTED_BY_USER",
+          },
+        });
+        return;
+      }
+
+      //else UI
       const requestId = uuid().toString();
 
       chrome.runtime.sendMessage(
@@ -59,8 +110,13 @@ if (chrome?.runtime) {
       const listener = async (objects: {
         [key: string]: chrome.storage.StorageChange;
       }) => {
-        const newArray = objects["requests"].newValue as KorianderRequest[];
-        console.log("NEW ARRAY", newArray);
+        let newArray: KorianderRequest[] = [];
+        try {
+          const resultObject = await chrome.storage.local.get("requests");
+
+          newArray = resultObject.requests as KorianderRequest[];
+        } catch {}
+
         const request = newArray.find((x) => x.id === requestId);
 
         if (request && request.response) {

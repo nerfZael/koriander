@@ -4,10 +4,14 @@ import { eventTypes } from "../constants/eventTypes";
 import { KorianderRequest } from "../types/request";
 
 chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.local.set({ provider: ["http://localhost:5137"] });
+  console.log("Requests reset");
   chrome.storage.local.set({ requests: [] });
   console.log("Requests reset");
   chrome.storage.local.set({ approvedUris: [] });
   console.log("Approved URIs reset");
+  chrome.storage.local.set({ rejectedUris: [] });
+  console.log("Rejected URIs reset");
 });
 
 const POPUP_WIDTH = 400;
