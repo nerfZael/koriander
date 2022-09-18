@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@polywrap/msgpack-js": "0.3.0",
+    "@polywrap/client-js": "0.3.0",
     "next": "12.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",

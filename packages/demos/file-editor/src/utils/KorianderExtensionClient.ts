@@ -1,19 +1,12 @@
 import {
   InvokeResult,
   InvokerOptions,
-  PolywrapClient,
   PolywrapClientConfig,
   Uri,
 } from "@polywrap/client-js";
 
-export class KorianderExtensionClient extends PolywrapClient {
-  constructor(
-    config?: Partial<PolywrapClientConfig>
-  ) {
-    super(config);
-  }
-
-  public override async invoke<
+export class KorianderExtensionClient {
+  public async invoke<
     TData = unknown,
     TUri extends string | Uri = string
   >(
