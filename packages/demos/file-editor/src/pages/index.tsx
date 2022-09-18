@@ -8,8 +8,8 @@ import "core-js/features/array/includes";
 import "core-js/features/number/is-nan";
 
 const Home = (): ReactElement<any, any> => {
-  const [filePath, setFilePath] = useState<string>("");
-  const [fileText, setFileText] = useState<string>("");
+  const [filePath, setFilePath] = useState<string>("file.txt");
+  const [fileText, setFileText] = useState<string>("Jurad");
 
   return (
     <div>
@@ -21,6 +21,7 @@ const Home = (): ReactElement<any, any> => {
               className="form-control"
               placeholder="File path..."
               type="text"
+              value={filePath}
               onChange={(e) => {
                 setFilePath(e.target.value);
               }}
@@ -41,6 +42,7 @@ const Home = (): ReactElement<any, any> => {
               onChange={(e) => {
                 setFileText(e.target.value);
               }}
+              value={fileText}
             />
           </div>
         </div>

@@ -1,3 +1,4 @@
 export const eventTypes = {
-  openInvoke: "koriander-open"
+  openInvoke: "koriander-open",
+  invokeResult: "koriander-invoke-result"
 }

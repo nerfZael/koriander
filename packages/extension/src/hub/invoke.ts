@@ -24,5 +24,5 @@ const internalInvoke = async (
     args: args,
   });
 
-  return result;
+  return result.data;
 };

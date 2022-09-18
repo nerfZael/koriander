@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { invoke } from "./hub/invoke";
+import { KorianderRequest } from "./types/request";
 
 function App() {
   const [provider, setProvider] = useState("http://localhost:5137");
@@ -11,6 +12,7 @@ function App() {
   const [uri, setUri] = useState("");
   const [method, setMethod] = useState("");
   const [args, setArgs] = useState<number[]>([]);
+  const [requestId, setRequestId] = useState("");
 
   useEffect(() => {
     const params = new URL(window.location.toString()).searchParams;
@@ -22,17 +24,45 @@ function App() {
       setUri(decodeURIComponent(params.get("uri") as string));
       setMethod(decodeURIComponent(params.get("method") as string));
       setArgs(JSON.parse(decodeURIComponent(params.get("args") as string)));
+      setRequestId(decodeURIComponent(params.get("requestId") as string));
 
-      console.log(decodeURIComponent(params.get("uri") as string));
-      console.log(decodeURIComponent(params.get("method") as string));
-      console.log(JSON.parse(decodeURIComponent(params.get("args") as string)));
+      console.log(decodeURIComponent(params.get("requestId") as string));
     }
   }, []);
 
   const handleClick = async () => {
-    const a = await invoke(provider, uri, method, args);
-    console.log(a);
-    alert("Check it");
+    const invokeResult = await invoke(provider, uri, method, args);
+    console.log(invokeResult);
+
+    // const messageObj = {
+    //   type: eventTypes.invokeResult,
+    //   result: invokeResult,
+    // };
+
+    chrome.storage.local.get("requests", (getResult) => {
+      console.log(getResult);
+      const array = getResult.requests as KorianderRequest[];
+
+      const request = array.find((x) => x.id === requestId);
+      if (request) {
+        request.response = invokeResult;
+      }
+
+      chrome.storage.local.set({ requests: array });
+    });
+    // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    //   console.log("TABS", tabs);
+    //   console.log(tabs[0].id as number);
+    //   chrome.tabs.sendMessage((tabs[0].id as number), messageObj, () => {});
+    // });
+
+    // chrome.runtime.sendMessage(
+    //   messageObj,
+    //   () => {}
+    // );
+
+    // alert("Check it");
+
     window.close();
   };
 

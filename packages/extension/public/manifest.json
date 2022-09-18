@@ -11,33 +11,36 @@
     "48": "logo192.png",
     "128": "logo192.png"
   },
-  "permissions": [
-    "activeTab",
-    "declarativeNetRequest"
-  ],
+  "permissions": ["activeTab", "tabs", "declarativeNetRequest", "storage"],
   "declarative_net_request": {
-    "rule_resources": [{
-      "id": "ruleset_1",
-      "enabled": true,
-      "path": "rules.json"
-    }]
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
   },
   "content_scripts": [
     {
-      "all_frames" : false,
+      "all_frames": false,
       "matches": ["http://*/*", "https://*/*"],
-      "run_at": "document_end",
+      "run_at": "document_start",
       "js": ["./static/js/content.js"]
     }
   ],
-  "host_permissions": [
-    "*://*/*"
-  ],
+  "host_permissions": ["*://*/*"],
   "background": {
     "service_worker": "./static/js/background.js"
   },
-  "web_accessible_resources": [{
-    "resources": ["static/js/inject.js"],
-    "matches": ["<all_urls>"]
-  }]
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "static/js/inject.js",
+        "static/js/inject.js.map",
+        "static/js/content.js.map"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
