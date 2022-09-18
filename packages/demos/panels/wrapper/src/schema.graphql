@@ -1,3 +1,5 @@
+#import { Module, Connection } into Ethereum from "wrap://ens/ethereum.polywrap.eth"
+
 type Module {
     metadata(id: BigInt!): WrapLinkJson
     image(id: BigInt!): WrapLinkFile

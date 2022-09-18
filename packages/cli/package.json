@@ -32,11 +32,14 @@
     "daemon": "yarn dev daemon"
   },
   "dependencies": {
-    "@polywrap/client-js": "0.7.0",
+    "@polywrap/client-js": "0.3.0",
+    "@polywrap/ethereum-plugin-js": "0.3.0",
+    "@polywrap/msgpack-js": "0.3.0",
     "awilix": "7.0.3",
     "commander": "9.4.0",
     "connect-timeout": "1.9.0",
     "cors": "2.8.5",
+    "dotenv": "16.0.2",
     "express": "4.18.1",
     "typescript": "4.8.3"
   },
