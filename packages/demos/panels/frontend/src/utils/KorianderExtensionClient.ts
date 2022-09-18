@@ -1,21 +1,19 @@
 import {
   InvokeResult,
   InvokerOptions,
-  PolywrapClient,
   PolywrapClientConfig,
   Uri,
 } from "@polywrap/client-js";
 import { msgpackDecode, msgpackEncode } from "@polywrap/msgpack-js";
 import axios from "axios";
 
-export class KorianderExtensionClient extends PolywrapClient {
+export class KorianderExtensionClient {
   constructor(
     config?: Partial<PolywrapClientConfig>
   ) {
-    super(config);
   }
 
-  public override async invoke<
+  public async invoke<
     TData = unknown,
     TUri extends string | Uri = string
   >(

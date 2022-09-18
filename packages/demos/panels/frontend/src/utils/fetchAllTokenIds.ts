@@ -8,7 +8,7 @@ export const fetchAllTokenIds = async (tokenEnumerator: string, tokenAddress: st
   const result: {
     ids: BigNumber[],
     total: BigNumber
-  } = await enumerator.enumerateAllTokens(tokenAddress, 0, 2);
+  } = await enumerator.enumerateAllTokens(tokenAddress, 0, 5);
 
   return result.ids.map(x => x.toNumber());
 };

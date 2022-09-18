@@ -1982,10 +1982,10 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
-"@polywrap/msgpack-js@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@polywrap/msgpack-js/-/msgpack-js-0.7.0.tgz#c0bcdb60a9e5429f8c986f420e705025a3a7d5ec"
-  integrity sha512-MFq8z91qfIDenGWSBDNhPtISXDD5M89q9b8hSbTvG19nF23GCNKqLjUY/ivV75qGhq7RmaPh3RbwTNMOGErk7A==
+"@polywrap/msgpack-js@0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@polywrap/msgpack-js/-/msgpack-js-0.3.0.tgz#6d44dfeacdf1036c59dbec5db31f09866829c2db"
+  integrity sha512-1O7JXQx23jOusAH+sX9myXua2/pZAPQEJqy9rqDOq+bUK/cpnhGwBfdzIIyMZY5kujlQUyRrjsryZZC2CWWJJw==
   dependencies:
     "@msgpack/msgpack" "2.7.2"
 
@@ -4751,7 +4751,7 @@ etag@~1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==
 
-ethers@^5.7.1:
+ethers@5.7.1:
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.7.1.tgz#48c83a44900b5f006eb2f65d3ba6277047fd4f33"
   integrity sha512-5krze4dRLITX7FpU8J4WscXqADiKmyeNlylmmDLbS95DaZpBhDe2YSwRQwKXWNyXcox7a3gBgm/MkGXV1O1S/Q==

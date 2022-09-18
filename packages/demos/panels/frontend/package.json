@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@polywrap/msgpack-js": "0.7.0",
+    "@polywrap/msgpack-js": "0.3.0",
     "ethers": "5.7.1",
     "next": "12.2.2",
     "react": "18.2.0",

@@ -21,35 +21,38 @@ const Home = (): ReactElement<any, any> => {
 
   const [web3] = useWeb3();
 
-  useEffect(() => {
+  const refresh = async () => {
     if(!web3?.account) {
       return;
     }
-
-    (async () => {
-      // setMyNfts(
-      //   await fetchTokens(await fetchTokenIdsForAccount(
-      //       contracts.tokenEnumerator, 
-      //       contracts.panels, 
-      //       web3?.account as string, 
-      //       web3?.signer
-      //     ), contracts.panels, web3?.signer)
-      //   );
-      setAllNfts(
-        await fetchTokens(await fetchAllTokenIds(
+    setMyNfts(
+      await fetchTokens(await fetchTokenIdsForAccount(
           contracts.tokenEnumerator, 
-          contracts.panels,
+          contracts.panels, 
+          web3?.account as string, 
           web3?.signer
         ), contracts.panels, web3?.signer)
       );
+    setAllNfts(
+      await fetchTokens(await fetchAllTokenIds(
+        contracts.tokenEnumerator, 
+        contracts.panels,
+        web3?.signer
+      ), contracts.panels, web3?.signer)
+    );
+  };
+  useEffect(() => {
+    (async () => {
+      await refresh();
     })();
   }, [web3]);
 
   const paint = async (nft: TokenInfo, textToPaint: string, coords: string) => {
-    console.log("painting", nft, textToPaint, coords);
     const coordinates = coords.split(",").map((c) => parseInt(c));
     const tx = await paintOnPanel(nft.id, textToPaint, coordinates[0], coordinates[1], web3?.signer);
     await tx.wait();
+    setSelectedNft(undefined);
+    await refresh();
   };
 
   return (
@@ -103,7 +106,7 @@ const Home = (): ReactElement<any, any> => {
               myNfts && myNfts.length 
                 ? myNfts.map((nft, index) => {
                     return (
-                      <div>
+                      <div onClick={() => setSelectedNft(nft)}>
                         <img src={`${nft.imageUri}`} />
                       </div>
                     )
