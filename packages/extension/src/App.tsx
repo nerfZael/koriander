@@ -97,35 +97,68 @@ function App() {
 
       await chrome.storage.local.set({ rejectedUris: [...rejectedUris] });
     }
-    
+
     window.close();
   };
 
   return screen == "main" ? (
-    <div className="App">
-      <header className="h-10 bg-green-700 px-2">
+    <>
+      <header className="h-10 bg-green-600 px-2">
         <h2 className="text-2xl font-semibold text-white">Koriander</h2>
       </header>
-      <main>
-        <input
-          type="text"
-          className="App-input"
-          value={provider}
-          onChange={handleProviderChange}
-        ></input>
-      </main>
-      <footer>
-        <p className="text-sm text-gray-500">Current provider: {provider}</p>
-      </footer>
-    </div>
+
+      <div className="App flex flex-col gap-4 p-4">
+        <main>
+          <label
+            htmlFor="provider"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Provider
+          </label>
+          <input
+            type="text"
+            className="App-input"
+            id="provider"
+            value={provider}
+            onChange={handleProviderChange}
+          ></input>
+        </main>
+      </div>
+    </>
   ) : (
-    <div className="App">
-      <button type="button" onClick={handleInvoke}>
-        INVOKE
-      </button>
-      <button type="button" onClick={handleReject}>
-        REJECT
-      </button>
+    <div className="App flex flex-col gap-4 p-4">
+      <div className="space-y-4 text-base text-center">
+        <p>Invoking</p>
+        <div>
+          <p className="font-bold text-gray-800">{uri}</p>
+          <p className="text-xs font-mono font-semibold tracking-wide text-gray-500">
+            URI
+          </p>
+        </div>
+        <div>
+          <p className="font-bold text-gray-800">{method}</p>
+          <p className="text-xs font-semibold tracking-wide text-gray-500">
+            Method
+          </p>
+        </div>
+      </div>
+      <div className="flex gap-4 justify-between align-middle">
+        <button
+          type="button"
+          className="App-btn-primary"
+          onClick={handleInvoke}
+        >
+          INVOKE
+        </button>
+        <button
+          type="button"
+          className="App-btn-secondary"
+          onClick={handleReject}
+        >
+          REJECT
+        </button>
+      </div>
+
       <div className="relative flex items-start">
         <div className="flex h-5 items-center">
           <input

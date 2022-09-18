@@ -1,7 +1,6 @@
 // @ts-ignore
 
 import { eventTypes } from "../constants/eventTypes";
-import { KorianderRequest } from "../types/request";
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.local.set({ provider: ["http://localhost:5137"] });
@@ -15,7 +14,7 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 const POPUP_WIDTH = 400;
-const POPUP_HEIGHT = 500;
+const POPUP_HEIGHT = 350;
 
 async function openInvoke(
   uri: string,

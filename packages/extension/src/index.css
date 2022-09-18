@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-sans w-[400px] h-[500px] ml-auto mr-auto bg-gray-50;
+  @apply font-sans w-[350px] h-[300px] ml-auto mr-auto bg-gray-50;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
